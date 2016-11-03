@@ -2,7 +2,16 @@ package com.jth.domain;
 
 public class Order {
 
+	private int id;
 	private int amount;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	public int getAmount() {
 		return amount;
@@ -12,5 +21,7 @@ public class Order {
 		this.amount = amount;
 	}
 	
-	
+	public boolean isOverdue() {
+		throw new UnsupportedOperationException();
+	}
 }
