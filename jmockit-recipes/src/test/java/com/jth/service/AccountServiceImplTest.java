@@ -68,6 +68,48 @@ public class AccountServiceImplTest {
 		int expectedBalance = 100;
 		assertEquals(expectedBalance, balance);
 	}
+
+	@Test
+	public void testGetBalance_mockTheClass(@Mocked Account account){
+		//arrange
+		ArrayList<Order> orders = new ArrayList<Order>();
+		{
+			Order order = new Order();
+			order.setAmount(30);
+			orders.add(order);
+		}
+		{
+			Order order = new Order();
+			order.setAmount(50);
+			orders.add(order);
+		}
+		{
+			Order order = new Order();
+			order.setAmount(20);
+			orders.add(order);
+		}
+
+		new Expectations(){
+			{
+				account.getId();
+				returns("1234");
+			}
+		};
+		
+		new Expectations(){
+			{
+				orderService.findOrders("1234");
+				returns(orders);
+			}
+		};
+		
+		//act
+		int balance = accountService.getBalance(account);
+		
+		//assert
+		int expectedBalance = 100;
+		assertEquals(expectedBalance, balance);
+	}
 	
 	@Test
 	public void testSumOfBalances_testingPrivateMethodDirectly(){
